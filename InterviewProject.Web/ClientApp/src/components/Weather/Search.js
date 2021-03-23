@@ -1,15 +1,18 @@
 import PropTypes from 'prop-types';
 import React, { useState, useEffect, useCallback } from 'react';
 import { LocationList } from './LocationList';
+import { usePrevious } from '../../hooks/usePrevious';
 import { WeatherApi } from '../../api/WeatherApi';
 
-const Search = ({dispatch}) => {
+const Search = ({dispatch, searching}) => {
     const [state, setState] = useState({locationFilter: '', selectedLocation: null});
     const [locations, setLocations] = useState([]);
+    const prevLocationFilter = usePrevious(state.locationFilter);
+    const isValidInput = (state.locationFilter.length > 2);
 
     useEffect(() => {
         const timeout = setTimeout(async () => {
-            if(state.locationFilter){
+            if(state.locationFilter && isValidInput && state.locationFilter !== prevLocationFilter){
                 dispatch({ type: 'SEARCHING', searching: true });
 
                 let locationsFound;
@@ -27,12 +30,15 @@ const Search = ({dispatch}) => {
                 }else if (locationsFound.length > 1) {
                     setLocations(locationsFound);
                     dispatch({ type: 'SEARCHING', searching: false });
+                }else {
+                    setLocations([]);
+                    dispatch({ type: 'RECORDS_NOT_FOUND', forecasts: []});
                 }
             }
         }, 500);
 
         return () => clearTimeout(timeout);
-    }, [state, dispatch]);
+    }, [state, prevLocationFilter, isValidInput, dispatch]);
 
     const onLocationSelected = useCallback(async (selectedLocation) => {
         setState({ locationFilter: selectedLocation.title, selectedLocation: selectedLocation});
@@ -40,7 +46,11 @@ const Search = ({dispatch}) => {
     
     return (
         <div>
-            <input className="search-input" placeholder="enter location" value={state.locationFilter} onChange={(e) => setState({ ...state, locationFilter: e.target.value})}></input>
+            <div>
+                <input disabled={searching} className="search-input" placeholder="enter location" value={state.locationFilter} onChange={(e) => setState({ ...state, locationFilter: e.target.value})}></input>
+                { state.locationFilter && !isValidInput && <span className="error">Enter at least 3 characters</span>}
+                {searching && <span className="searching"><em>Searching...</em></span>}
+            </div>
             { locations.length > 0 && <LocationList locations={locations} onLocationSelected={onLocationSelected} /> }
         </div>
     );
