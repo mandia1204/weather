@@ -3,6 +3,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { LocationList } from './LocationList';
 import { usePrevious } from '../../hooks/usePrevious';
 import { WeatherApi } from '../../api/WeatherApi';
+import './Search.css';
 
 const Search = ({dispatch, searching}) => {
     const [state, setState] = useState({locationFilter: '', selectedLocation: null});

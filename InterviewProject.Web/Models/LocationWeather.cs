@@ -14,6 +14,6 @@ namespace InterviewProject.Models
         public string weather_state_name { get; set; }
         public DateTime applicable_date { get; set; }
         public double the_temp { get; set; }
-        //public int TemperatureF => 32 + (int)(the_temp / 0.5556);
+        public string weather_state_abbr { get; set; }
     }
 }

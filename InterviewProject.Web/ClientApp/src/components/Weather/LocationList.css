@@ -1,0 +1,21 @@
+.location-list {
+    width: 200px;
+}
+
+.location-list .location-list-items {
+    background-color: #e3f2fd;
+}
+
+.location-list .title {
+    background-color: #b1bfca;
+    padding: 2px;
+}
+
+.location-list-item {
+    padding: 2px;
+    cursor: pointer;
+}
+
+.location-list-item:hover {
+    background-color: #8aacc8;
+}

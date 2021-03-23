@@ -1,0 +1,12 @@
+.search-input {
+    width: 200px;
+}
+
+.error {
+    color: red;
+    padding-left: 5px;
+}
+
+.searching {
+    padding-left: 5px;
+}

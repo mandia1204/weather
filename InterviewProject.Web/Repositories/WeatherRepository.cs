@@ -37,7 +37,8 @@ namespace InterviewProject.Repositories
                 Id = forecastWeather.id,
                 Date = forecastWeather.applicable_date.ToShortDateString(),
                 State = forecastWeather.weather_state_name,
-                TemperatureC = forecastWeather.the_temp
+                StateAbbr = forecastWeather.weather_state_abbr,
+                TemperatureC = (int)forecastWeather.the_temp
             }
             );
         }

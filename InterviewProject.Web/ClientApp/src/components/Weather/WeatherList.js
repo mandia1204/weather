@@ -19,7 +19,7 @@ const WeatherList = ({forecasts}) => {
               <td>{forecast.date}</td>
               <td>{forecast.temperatureC}</td>
               <td>{forecast.temperatureF}</td>
-              <td>{forecast.state}</td>
+              <td><img style={{ width: '32px'}} src={`https://www.metaweather.com/static/img/weather/${forecast.stateAbbr}.svg`} alt={forecast.state} title={forecast.state}></img></td>
             </tr>
           )}
         </tbody>

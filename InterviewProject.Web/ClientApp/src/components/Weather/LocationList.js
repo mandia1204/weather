@@ -1,4 +1,5 @@
 import React from 'react';
+import './LocationList.css';
 
 export const LocationList = ({locations, onLocationSelected}) => {
     return (
